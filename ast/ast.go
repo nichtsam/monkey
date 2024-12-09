@@ -1,6 +1,9 @@
 package ast
 
-import "bytes"
+import (
+	"bytes"
+	"fmt"
+)
 
 type Node interface {
 	_node()
@@ -19,6 +22,31 @@ type Expression interface {
 
 type Program struct {
 	Statements []Statement
+}
+
+type LetStatement struct {
+	Identifier *Identifier
+	Expression Expression
+}
+
+func (n *LetStatement) _node() {}
+
+func (n *LetStatement) _statement() {}
+
+func (n *LetStatement) String() string {
+	return fmt.Sprintf("let %s = %s;", n.Identifier, n.Expression)
+}
+
+type Identifier struct {
+	Literal string
+}
+
+func (n *Identifier) _node() {}
+
+func (n *Identifier) _expression() {}
+
+func (n *Identifier) String() string {
+	return n.Literal
 }
 
 func (p *Program) _node() {}
