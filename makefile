@@ -7,5 +7,5 @@ build:
 	@go build -o ./build/repl .
 
 test:
-	@go test ./lexer
+	@go test ./lexer ./ast ./parser
 
