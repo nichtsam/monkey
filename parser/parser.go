@@ -55,6 +55,10 @@ func (p *Parser) parseStatement() ast.Statement {
 		if s := p.parseLetStatement(); s != nil {
 			return s
 		}
+	case token.RETURN:
+		if s := p.parseReturnStatement(); s != nil {
+			return s
+		}
 	}
 
 	return nil
@@ -80,6 +84,14 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 	if ok := p.expectNextToken(token.ASSIGN); !ok {
 		return nil
 	}
+
+	s.Expression = p.parseExpression()
+
+	return s
+}
+
+func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
+	s := &ast.ReturnStatement{}
 
 	s.Expression = p.parseExpression()
 

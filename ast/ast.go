@@ -37,6 +37,18 @@ func (n *LetStatement) String() string {
 	return fmt.Sprintf("let %s = %s;", n.Identifier, n.Expression)
 }
 
+type ReturnStatement struct {
+	Expression Expression
+}
+
+func (n *ReturnStatement) _node() {}
+
+func (n *ReturnStatement) _statement() {}
+
+func (n *ReturnStatement) String() string {
+	return fmt.Sprintf("return %s;", n.Expression)
+}
+
 type Identifier struct {
 	Literal string
 }

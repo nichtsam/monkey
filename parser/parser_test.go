@@ -43,6 +43,23 @@ func TestParseLetStatement(t *testing.T) {
 	}
 }
 
+func TestParseReturnStatement(t *testing.T) {
+	input := `
+    return a;
+    return b;
+    return c;
+  `
+	parser := New(input)
+	program := parser.Parse()
+	checkParseErrors(t, parser)
+	checkProgram(t, program, 3)
+
+	for i := range 3 {
+		t.Logf("test[%d]", i)
+		expectNode[*ast.ReturnStatement](t, program.Statements[i])
+	}
+}
+
 func checkProgram(t *testing.T, p *ast.Program, expectedStatementsCount int) {
 	if p == nil {
 		t.Fatal("Parse() returned nil")
